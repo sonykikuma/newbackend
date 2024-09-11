@@ -3,11 +3,16 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
 const { initializeDatabase } = require("./db/db.connection");
 const { Books1 } = require("./models/books1.model");
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 initializeDatabase();
