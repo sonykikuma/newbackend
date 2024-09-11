@@ -12,5 +12,7 @@
       "destination": "index.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     }
-  ]
+  ],
+  "buildCommand": "next build",
+  "cleanUrls": true
 }
