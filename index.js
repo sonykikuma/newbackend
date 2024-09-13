@@ -1,18 +1,19 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
 const app = express();
+
+const cors = require("cors");
 const corsOptions = {
   origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
 };
+app.use(cors(corsOptions));
 
 const { initializeDatabase } = require("./db/db.connection");
 const { Books1 } = require("./models/books1.model");
 
-app.use(cors(corsOptions));
 app.use(express.json());
 
 initializeDatabase();
@@ -46,7 +47,8 @@ app.delete("/books1/:id", async (req, res) => {
   const bookId = req.params.id;
 
   try {
-    const deletedBook = await Books1.findByIdAndRemove(bookId);
+    //const deletedBook = await Books1.findByIdAndRemove(bookId);
+    const deletedBook = await Books1.findByIdAndDelete(bookId);
 
     if (!deletedBook) {
       return res.status(404).json({ error: "Book not found" });
