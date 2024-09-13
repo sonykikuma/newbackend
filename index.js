@@ -62,6 +62,28 @@ app.delete("/books1/:id", async (req, res) => {
   }
 });
 
+// to update a book detail
+app.put("/books1/:id", async (req, res) => {
+  const bookId = req.params.id;
+  const updatedBookData = req.body;
+
+  try {
+    const updatedBook = await Books1.findByIdAndUpdate(
+      bookId,
+      updatedBookData,
+      { new: true }
+    );
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json(updatedBook);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
